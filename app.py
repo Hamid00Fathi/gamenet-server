@@ -1,13 +1,14 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
+
 app = Flask(__name__)
 
-db = {}
+db = {}   # ذخیرهٔ وضعیت کاربران
 
-@app.route("/update/<gamenet_id>", methods=["POST"])
-def update(gamenet_id):
-    db[gamenet_id] = request.json
-    return {"status": "ok"}
+@app.route("/update/<username>", methods=["POST"])
+def update(username):
+    db[username] = request.json
+    return jsonify({"status": "ok"})
 
-@app.route("/status/<gamenet_id>", methods=["GET"])
-def status(gamenet_id):
-    return db.get(gamenet_id, {})
+@app.route("/status/<username>", methods=["GET"])
+def status(username):
+    return jsonify(db.get(username, {}))
