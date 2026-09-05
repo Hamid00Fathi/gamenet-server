@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
 
 db = {}   # ذخیرهٔ وضعیت کاربران
 
@@ -14,4 +16,3 @@ def update(username):
 def status(username):
     return jsonify(db.get(username, {}))
 
-CORS(app)
